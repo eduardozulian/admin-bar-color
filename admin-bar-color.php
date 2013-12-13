@@ -2,7 +2,7 @@
 /*
 Plugin Name: Admin Bar Color
 Plugin URI: http://github.com/eduardozulian/admin-bar-color
-Description: Use your favourite Dashboard color scheme on the front end admin bar.
+Description: Use your favorite Dashboard color scheme on the front end admin bar.
 Version: 1.0
 Author: Eduardo Zulian
 Author URI: http://flutuante.com.br
@@ -23,7 +23,7 @@ function admin_bar_color () {
 			wp_enqueue_style( $user_color, admin_url( 'css/colors/' . $user_color . '/colors' . $suffix . ' .css' ) );
 		}
 	}
-	
+
 }
 add_action( 'wp_enqueue_scripts', 'admin_bar_color' );
 ?>
