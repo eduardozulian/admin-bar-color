@@ -3,7 +3,7 @@
 Plugin Name: Admin Bar Color
 Plugin URI: http://github.com/eduardozulian/admin-bar-color
 Description: Use your favorite Dashboard color scheme on the front end admin bar.
-Version: 1.0
+Version: 1.1
 Author: Eduardo Zulian
 Author URI: http://flutuante.com.br
 License: GNU General Public License v2 or later
@@ -12,18 +12,42 @@ Text Domain: admin-bar-color
 Domain Path: /languages
 */
 
-function admin_bar_color () {
+/**
+ * Admin Bar Color class
+ */
+class Admin_Bar_Color {
 
-	if ( is_admin_bar_showing() ) {
-		$user_color = get_user_option( 'admin_color' );
+	function __construct( ) {
+		add_action( 'wp_before_admin_bar_render', array( $this, 'save_wp_admin_color_schemes_list' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_admin_bar_color' ) );
+	}
 
-		if ( isset( $user_color ) ) {
-			$suffix = is_rtl() ? '-rtl' : '';
-	    	$suffix .= defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-			wp_enqueue_style( $user_color, admin_url( 'css/colors/' . $user_color . '/colors' . $suffix . ' .css' ) );
+	/**
+	 * Save the color schemes list into wp_options table
+	 */
+	function save_wp_admin_color_schemes_list() {
+		global $_wp_admin_css_colors;
+
+		if ( count( $_wp_admin_css_colors ) > 1 && has_action( 'admin_color_scheme_picker' ) ) {
+			update_option( 'wp_admin_color_schemes', $_wp_admin_css_colors );
 		}
 	}
 
+	/**
+	 * Enqueue the registered color schemes on the front end
+	 */
+	function enqueue_admin_bar_color() {
+		if ( ! is_admin_bar_showing() )
+			return;
+
+		$user_color = get_user_option( 'admin_color' );
+
+		if ( isset( $user_color ) ) {
+			$wp_admin_color_schemes = get_option( 'wp_admin_color_schemes' );
+			wp_enqueue_style( $user_color, $wp_admin_color_schemes[$user_color]->url );
+		}
+	}
 }
-add_action( 'wp_enqueue_scripts', 'admin_bar_color' );
+
+$admin_bar_color = new Admin_Bar_Color();
 ?>
