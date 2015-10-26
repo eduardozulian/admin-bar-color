@@ -17,7 +17,7 @@ Domain Path: /languages
  */
 class Admin_Bar_Color {
 
-	function __construct( ) {
+	function __construct() {
 		add_action( 'wp_before_admin_bar_render', array( $this, 'save_wp_admin_color_schemes_list' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_admin_bar_color' ) );
 	}
@@ -37,8 +37,9 @@ class Admin_Bar_Color {
 	 * Enqueue the registered color schemes on the front end
 	 */
 	function enqueue_admin_bar_color() {
-		if ( ! is_admin_bar_showing() )
+		if ( ! is_admin_bar_showing() ) {
 			return;
+		}
 
 		$user_color = get_user_option( 'admin_color' );
 
@@ -50,4 +51,3 @@ class Admin_Bar_Color {
 }
 
 $admin_bar_color = new Admin_Bar_Color();
-?>
