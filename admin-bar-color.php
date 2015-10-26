@@ -5,7 +5,7 @@ Plugin URI: http://github.com/eduardozulian/admin-bar-color
 Description: Use your favorite Dashboard color scheme on the front end admin bar.
 Version: 1.1
 Author: Eduardo Zulian
-Author URI: http://flutuante.com.br
+Author URI: http://zulian.org
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: admin-bar-color
