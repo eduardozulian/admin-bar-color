@@ -3,7 +3,7 @@
 Plugin Name: Admin Bar Color
 Plugin URI: http://github.com/eduardozulian/admin-bar-color
 Description: Use your favorite Dashboard color scheme on the front end admin bar.
-Version: 1.2
+Version: 1.2.0.1
 Author: Eduardo Zulian
 Author URI: http://zulian.org
 License: GNU General Public License v2 or later
@@ -28,7 +28,7 @@ class Admin_Bar_Color {
 	function save_wp_admin_color_schemes_list() {
 		global $_wp_admin_css_colors;
 
-		if ( count( $_wp_admin_css_colors ) > 1 && has_action( 'admin_color_scheme_picker' ) ) {
+		if ( !empty( $_wp_admin_css_colors ) && count( $_wp_admin_css_colors ) > 1 && has_action( 'admin_color_scheme_picker' ) ) {
 			update_option( 'wp_admin_color_schemes', $_wp_admin_css_colors );
 		}
 	}
